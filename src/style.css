@@ -1,0 +1,23 @@
+.ddd-btn {
+  color: white;
+  padding: 0px 15px;
+  cursor: pointer;
+  color: #00b09a;
+}
+.ddd-btn:hover {
+  color: #006457;
+  text-decoration: underline;
+}
+
+/*  */
+.hthb-row {
+  display: none;
+}
+#afc_sidebar_2842,
+#iaujwnefhw,
+#sajdhfbjwhe {
+  position: fixed !important;
+  right: 20000px !important;
+  /* display: none; */
+}
+/*  */
