@@ -9,6 +9,19 @@
   text-decoration: underline;
 }
 
+.ddd-popup {
+  min-width: 100px;
+  min-height: 100px;
+  padding: 20px;
+  border-radius: 20px 0 0 0px;
+  box-shadow: #848484 -1px -1px 8px 0px;
+  background-color: #ffffff;
+  z-index: 998;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  transition: all;
+}
 /*  */
 .hthb-row {
   display: none;

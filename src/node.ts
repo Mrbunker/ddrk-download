@@ -39,7 +39,7 @@ main();
 
 /** 控制台使用 */
 async function consoleDown() {
-  const wpScript = document.querySelector("script.wp-playlist-script").innerHTML;
+  const wpScript = document.querySelector("script.wp-playlist-script")!.innerHTML;
   const resources = JSON.parse(wpScript).tracks.map((item) => {
     const regResult = item.src0.match(/^\/v\/(\w*)\/(\w*)/);
     return {
@@ -70,8 +70,8 @@ async function consoleDown() {
 }
 
 // 命令行压缩版本
-async function console() {
+async function oneline() {
   // 这一行直接拿到命令行运行应该就有了
   // prettier-ignore
-  await Promise.all( JSON.parse(document.querySelector("script.wp-playlist-script").innerHTML) .tracks.map((item) => `${window.location.origin}/getvddr/video?id=${item.src1}&type=mix`) .map(async (item) => fetch(item).then((rep) => rep.json())), );
+  await Promise.all( JSON.parse(document.querySelector("script.wp-playlist-script")!.innerHTML) .tracks.map((item) => `${window.location.origin}/getvddr/video?id=${item.src1}&type=mix`) .map(async (item) => fetch(item).then((rep) => rep.json())), );
 }

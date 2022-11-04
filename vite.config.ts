@@ -6,14 +6,14 @@ export default defineConfig({
   plugins: [
     monkey({
       entry: "src/main.ts",
-      build: { fileName: "ddrk-download.user.js", externalGlobals: {} },
+      build: { fileName: "ddd.user.js", externalGlobals: {} },
       userscript: {
         author: "mission522",
         license: "MIT",
         version: "0.0.1",
         icon: "https://ddys.tv/favicon-32x32.png",
         namespace: "ddrk-download",
-        description: "低端影视-下载",
+        description: "低端影视-下载 ",
         match: ["*://*.ddys.tv/*", "*://*.ddys2.me/*"],
       },
     }),

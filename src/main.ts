@@ -1,22 +1,42 @@
 import "./style.css";
 
 async function main() {
+  const wpScript = document.querySelector("script.wp-playlist-script")?.innerHTML;
+  if (!wpScript) return;
+
   polyfillConsole();
-  createBtn();
-  // const data = await download();
+  const popup = createPopup();
+  createBtn(popup, wpScript);
 }
 
-function showPopup() {
-  // const popup = document.createElement("div");
-  // document.body.appendChild(popup);
-  // popup.classList.add("ddd-popup");
+function createPopup() {
+  const popup = document.createElement("div");
+  document.body.appendChild(popup);
+  popup.classList.add("ddd-popup");
+  popup.style.display = "none";
+  return popup;
 }
 
-function createBtn() {
+function createBtn(popup: HTMLDivElement, wpScript: string) {
   const app = document.createElement("span");
   app.classList.add("ddd-btn");
   app.innerHTML = "下载";
-  app.addEventListener("click", download);
+  let firtClick = true;
+  app.addEventListener("click", async () => {
+    if (!firtClick) return;
+    popup.style.display = popup.style.display === "none" ? "block" : "none";
+    const data = await download(wpScript);
+    const popupStr = data
+      .map(
+        (item) =>
+          `<div><span>${item?.ep}</span> <a href="${
+            item?.video ? item?.video : "无"
+          }" target="_blank">链接</a></div>`,
+      )
+      .join("");
+    popup.innerHTML = popupStr;
+    firtClick = false;
+  });
 
   const appWrap = document.querySelector(`.entry>p [style="float:right;"]:not([class])`);
   appWrap!.innerHTML = "";
@@ -30,11 +50,8 @@ function polyfillConsole() {
   window.console = iframe.contentWindow?.console;
 }
 
-async function download() {
-  const wpScript = document.querySelector("script.wp-playlist-script")?.innerHTML;
-  if (!wpScript) return;
+async function download(wpScript: string) {
   const tracks: trackItem[] = JSON.parse(wpScript).tracks;
-  // console.log("| ", tracks);
   const resources = tracks.map((item) => {
     const regResult = item.src0.match(/^\/v\/((\w*)\/(.*))/);
     return {
@@ -44,22 +61,21 @@ async function download() {
       src1: `${window.location.origin}/getvddr/video?id=${item.src1}&type=mix`,
     };
   });
-  const result = await Promise.all(
+  return await Promise.all(
     resources.map(async (item) => {
       const res = await fetch(item.src1);
       /**  | { error: number } */
       const resJson = (await res.json()) as { url: string; cache: string };
-      if (resJson.url === undefined) return;
+      const video = resJson?.url ? resJson?.url.replace("=1", item.name) : undefined;
       return {
         name: item.name,
         ep: item.ep,
         catalog: item.catalog,
-        video: resJson?.url.replace("=1", item.name),
+        video,
         cache: resJson?.cache,
       };
     }),
   );
-  console.log(result);
 }
 
 main();
