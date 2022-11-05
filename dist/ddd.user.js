@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         ddrk-download
-// @namespace    ddrk-download
+// @namespace    https://github.com/Mrbunker/ddrk-download
 // @version      0.0.1
 // @author       mission522
 // @description  低端影视-下载 
@@ -20,7 +20,6 @@
     const wpScript = (_a = document.querySelector("script.wp-playlist-script")) == null ? void 0 : _a.innerHTML;
     if (!wpScript)
       return;
-    polyfillConsole();
     const popup = createPopup();
     createBtn(popup, wpScript);
   }
@@ -37,9 +36,9 @@
     app.innerHTML = "下载";
     let firtClick = true;
     app.addEventListener("click", async () => {
+      popup.style.display = popup.style.display === "none" ? "block" : "none";
       if (!firtClick)
         return;
-      popup.style.display = popup.style.display === "none" ? "block" : "none";
       const data = await download(wpScript);
       const popupStr = data.map(
         (item) => `<div><span>${item == null ? void 0 : item.ep}</span> <a href="${(item == null ? void 0 : item.video) ? item == null ? void 0 : item.video : "无"}" target="_blank">链接</a></div>`
@@ -50,12 +49,6 @@
     const appWrap = document.querySelector(`.entry>p [style="float:right;"]:not([class])`);
     appWrap.innerHTML = "";
     appWrap == null ? void 0 : appWrap.appendChild(app);
-  }
-  function polyfillConsole() {
-    var _a;
-    const iframe = document.createElement("iframe");
-    document.body.appendChild(iframe);
-    window.console = (_a = iframe.contentWindow) == null ? void 0 : _a.console;
   }
   async function download(wpScript) {
     const tracks = JSON.parse(wpScript).tracks;

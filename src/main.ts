@@ -5,7 +5,7 @@ async function main() {
   const wpScript = document.querySelector("script.wp-playlist-script")?.innerHTML;
   if (!wpScript) return;
 
-  polyfillConsole();
+  // polyfillConsole();
   const popup = createPopup();
   createBtn(popup, wpScript);
 }
@@ -24,8 +24,8 @@ function createBtn(popup: HTMLDivElement, wpScript: string) {
   app.innerHTML = "下载";
   let firtClick = true;
   app.addEventListener("click", async () => {
-    if (!firtClick) return;
     popup.style.display = popup.style.display === "none" ? "block" : "none";
+    if (!firtClick) return;
     const data = await download(wpScript);
     const popupStr = data
       .map(
@@ -45,11 +45,11 @@ function createBtn(popup: HTMLDivElement, wpScript: string) {
 }
 
 /** 通过 iframe 补回 console.log */
-function polyfillConsole() {
-  const iframe = document.createElement("iframe") as any;
-  document.body.appendChild(iframe);
-  window.console = iframe.contentWindow?.console;
-}
+// function polyfillConsole() {
+//   const iframe = document.createElement("iframe") as any;
+//   document.body.appendChild(iframe);
+//   window.console = iframe.contentWindow?.console;
+// }
 
 async function download(wpScript: string) {
   const tracks: trackItem[] = JSON.parse(wpScript).tracks;
