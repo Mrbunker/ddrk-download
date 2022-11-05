@@ -1,4 +1,4 @@
-interface trackItem {
+export interface trackItem {
   src: string;
   src0: string;
   src1: string;

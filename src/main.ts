@@ -1,4 +1,5 @@
 import "./style.css";
+import { trackItem } from "./type";
 
 async function main() {
   const wpScript = document.querySelector("script.wp-playlist-script")?.innerHTML;
