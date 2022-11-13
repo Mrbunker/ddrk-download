@@ -14,7 +14,7 @@ export default defineConfig({
         version: "0.0.1",
         icon: "https://ddys.tv/favicon-32x32.png",
         namespace: "https://github.com/Mrbunker/ddrk-download",
-        description: "低端影视-下载 ",
+        description: "低端影视-下载",
         match: ["*://*.ddys.tv/*", "*://*.ddys2.me/*"],
       },
     }),

@@ -3,14 +3,14 @@
 // @namespace    https://github.com/Mrbunker/ddrk-download
 // @version      0.0.1
 // @author       mission522
-// @description  低端影视-下载 
+// @description  低端影视-下载
 // @license      MIT
 // @icon         https://ddys.tv/favicon-32x32.png
 // @match        *://*.ddys.tv/*
 // @match        *://*.ddys2.me/*
 // ==/UserScript==
 
-(d=>{const o=document.createElement("style");o.dataset.source="vite-plugin-monkey",o.innerText=d,document.head.appendChild(o)})(".ddd-btn{color:#fff;padding:0 15px;cursor:pointer;color:#00b09a}.ddd-btn:hover{color:#006457;text-decoration:underline}.ddd-popup{min-width:100px;min-height:100px;padding:20px;border-radius:20px 0 0;box-shadow:#848484 -1px -1px 8px;background-color:#fff;z-index:998;position:fixed;bottom:0;right:0;transition:all}.hthb-row{display:none}#afc_sidebar_2842,#iaujwnefhw,#sajdhfbjwhe{position:fixed!important;right:20000px!important}");
+(d=>{const o=document.createElement("style");o.dataset.source="vite-plugin-monkey",o.innerText=d,document.head.appendChild(o)})(".ddd-btn{color:#fff;padding:0 15px;cursor:pointer;color:#00b09a}.ddd-btn:hover{color:#006457;text-decoration:underline}.ddd-popup{min-width:100px;min-height:100px;padding:20px;border-radius:20px 0 0;box-shadow:#848484 -1px -1px 8px;background-color:#fff;z-index:998;position:fixed;bottom:0;right:0;transition:all}#afc_sidebar_2842,#iaujwnefhw,#sajdhfbjwhe{position:fixed!important;right:20000px!important}");
 
 (function() {
   "use strict";
