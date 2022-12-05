@@ -9,6 +9,7 @@ export default defineConfig({
       entry: "src/main.ts",
       build: { fileName: "ddd.user.js", externalGlobals: {} },
       userscript: {
+        name: "低端影视-下载",
         author: "mission522",
         license: "MIT",
         version: "0.0.1",

@@ -75,3 +75,45 @@ async function oneline() {
   // prettier-ignore
   await Promise.all( JSON.parse(document.querySelector("script.wp-playlist-script")!.innerHTML) .tracks.map((item) => `${window.location.origin}/getvddr/video?id=${item.src1}&type=mix`) .map(async (item) => fetch(item).then((rep) => rep.json())), );
 }
+
+/** 字幕 */
+const downloadVtt = (url, name) => {
+  fetch(url)
+    .then((res) => res.arrayBuffer())
+    .then((arrayBuffer) => {
+      let eAB = arrayBuffer,
+        wordArray = CryptoJS.lib.WordArray.create(eAB.slice(16)),
+        hexStr = Array.prototype.map
+          .call(new Uint8Array(eAB.slice(0, 16)), (x) => ("00" + x.toString(16)).slice(-2))
+          .join(""),
+        wordArray2 = CryptoJS.enc.Hex.parse(hexStr),
+        jsdec = CryptoJS.AES.decrypt(
+          {
+            ciphertext: wordArray,
+          },
+          wordArray2,
+          {
+            iv: wordArray2,
+            mode: CryptoJS.mode.CBC,
+          },
+        ),
+        binary_string = window.atob(jsdec.toString(CryptoJS.enc.Base64)),
+        len = binary_string.length,
+        bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) bytes[i] = binary_string.charCodeAt(i);
+      let blobStr = pako.ungzip(bytes.buffer, {
+        to: "string",
+      });
+      blobStr = blobStr.replaceAll("&lrm;", "");
+      console.dir(window.URL.createObjectURL(new Blob([blobStr])));
+      return;
+      const a = document.createElement("a"),
+        objectUrl = window.URL.createObjectURL(new Blob([blobStr]));
+      (a.download = name),
+        (a.href = objectUrl),
+        a.click(),
+        window.URL.revokeObjectURL(objectUrl),
+        a.remove();
+    });
+};
+const vttUrl = "https://ddys.tv/subddr/v/west_drama/BlackMirror/BlackMirror_s02e01.ddr";

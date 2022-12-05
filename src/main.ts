@@ -30,9 +30,10 @@ function createBtn(popup: HTMLDivElement, wpScript: string) {
     const popupStr = data
       .map(
         (item) =>
-          `<div><span>${item?.ep}</span> <a href="${
-            item?.video ? item?.video : "无"
-          }" target="_blank">链接</a></div>`,
+          `<div>
+            <span>${item?.ep}</span>
+            <a href="${item?.video ? item?.video : "无"}">链接</a>
+          </div>`,
       )
       .join("");
     popup.innerHTML = popupStr;
@@ -55,11 +56,13 @@ async function download(wpScript: string) {
   const tracks: trackItem[] = JSON.parse(wpScript).tracks;
   const resources = tracks.map((item) => {
     const regResult = item.src0.match(/^\/v\/((\w*)\/(.*))/);
+    const locationOrigin = window.location.origin;
     return {
       name: regResult ? regResult[1] : "匹配失败",
       ep: item.caption,
       catalog: regResult ? regResult[2] : "匹配失败",
-      src1: `${window.location.origin}/getvddr/video?id=${item.src1}&type=mix`,
+      src1: `${locationOrigin}/getvddr/video?id=${item.src1}&type=mix`,
+      subtitle: `${locationOrigin}/subddr${item.subsrc}`,
     };
   });
   return await Promise.all(
